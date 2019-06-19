@@ -8,18 +8,10 @@ var losses = 0;
 //tracks amount of guesses
 var guessesLeft = 10;
 //randomizes alphabet variables 
-var letter = alphabet[Math.floor(Math.random() * alphabet.length)];
+var updateLetter = function (){ letter =  alphabet[Math.floor(Math.random() * alphabet.length)]};
+updateLetter();
 console.log(letter)
-
-// function letter(length) {
-//     var result = '';
-//     for (var i = 0; i < length; i++) {
-//         result += alphabet[Math.floor(Math.random() * alphabet.length)];
-//     }
-//     return result;
-// }
-// console.log(letter(1));
-
+var array = [];
 //listening for event of onkeyup
 document.onkeyup = function (event) {
 
@@ -29,10 +21,13 @@ document.onkeyup = function (event) {
     //if guesses specifically = letter wins increment by 
     if (userInput === letter) {
         wins++;
-
-        // i need a function to call on so i can replace the original letter 
-
-
+        // array.push(userInput);
+        console.log(array);
+        console.log(array);
+        guessesLeft = 10;
+        // array = [];
+        updateLetter();
+        console.log(letter);
     }
     //otherwise guessesLeft decrements
     else {
@@ -43,16 +38,21 @@ document.onkeyup = function (event) {
     if (guessesLeft === 0) {
         losses++
         guessesLeft = 10;
-
+        array = [];
+        updateLetter();
+        console.log(array);
+       console.log(array);
     }
-
-
+    else if (userInput !== letter){
+    array.push(userInput);
+    // console.log(array);
+}
     // this displays to my divs. had to type string in here cuz .innerHTML rewrites entire div
     document.getElementById("letter").innerHTML = "Guess what letter I'm thinking of ";
     document.getElementById("wins").innerHTML = "Wins: " + wins; //increments per match 
     document.getElementById("losses").innerHTML = "Losses: " + losses; // decremnts losses inside div
     document.getElementById("guessesLeft").innerHTML = "Guesses Left: " + guessesLeft; //puts my guessesLeft to the desired div
-    document.getElementById("guesses").innerHTML = "Your Guesses So Far: " + userInput   //list all guesses here
+    document.getElementById("guesses").innerHTML = "Your Guesses So Far: " + array;   //list all guesses here
 
 
 }
